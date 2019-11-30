@@ -7,13 +7,13 @@ const server = http.createServer((req, res) => {
   res.end("Hello World\n");
   res.end();
 });
-//   .listen(8080);
 
 server.listen(8080, "127.0.0.1", () => {
   console.log("accessed!!");
 
-  const data = fs.readFileSync("exampleFile.txt").toString();
-  console.log(data);
+  fs.readFile("exampleFile.txt", (err, data) => {
+    console.log(data.toString());
+  });
 
   console.log("end");
 });
