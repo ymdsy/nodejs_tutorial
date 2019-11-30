@@ -9,9 +9,15 @@ const server = http.createServer((req, res) => {
 });
 
 server.listen(8080, "127.0.0.1", () => {
-  console.log("accessed!!");
+  console.log("started!!");
 
   fs.readFile("exampleFile.txt", (err, data) => {
+    // fs.readFile("dummyFile.txt", (err, data) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+
     console.log(data.toString());
   });
 
