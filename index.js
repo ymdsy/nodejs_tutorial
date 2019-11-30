@@ -2,18 +2,8 @@ const fs = require("fs");
 
 console.log("started!!");
 
-try {
-  //   fs.readFile("exampleFile.txt", (err, data) => {
-  fs.readFile("dummyFile.txt", (err, data) => {
-    //   if (err) {
-    console.error(err);
-    //     return;
-    //   }
-
-    console.log(data.toString());
-  });
-} catch (err) {
-  console.error(err);
+for (let i = 0; i < 100; i++) {
+  fs.appendFile("exampleFile.txt", i + ",", err => {});
 }
 
 console.log("end");

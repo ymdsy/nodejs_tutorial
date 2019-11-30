@@ -1,2 +1,2 @@
 file is read!
-second row.
+second row
