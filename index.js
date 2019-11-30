@@ -2,8 +2,14 @@ const fs = require("fs");
 
 console.log("started!!");
 
-for (let i = 0; i < 100; i++) {
-  fs.appendFile("exampleFile.txt", i + ",", err => {});
-}
+const write = i => {
+  if (i > 100) return;
+
+  fs.appendFile("exampleFile.txt", i++ + ",", err => {
+    write(i);
+  });
+};
+
+write(0);
 
 console.log("end");
