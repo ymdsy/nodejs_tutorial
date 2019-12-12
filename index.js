@@ -1,13 +1,14 @@
-const fs = require("fs").promises;
+const fs = require("fs");
+const rs = fs.createReadStream("exampleFile.txt");
 
 console.log("started!!");
 
-const write = async () => {
-  for (let i = 0; i < 100; i++) {
-    await fs.appendFile("exampleFile.txt", i + ",");
-  }
-};
+rs.on("data", data => {
+  console.log(data.toString());
+});
 
-write(0);
+rs.on("error", err => {
+  console.error(err);
+});
 
 console.log("end");
