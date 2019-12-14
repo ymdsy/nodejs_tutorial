@@ -1,14 +1,18 @@
 const fs = require("fs");
-const rs = fs.createReadStream("exampleFile.txt");
+const rs = fs.createReadStream("exampleFile.txt", "utf8");
 
 console.log("started!!");
 
-rs.on("data", data => {
-  console.log(data.toString());
-});
-
-rs.on("error", err => {
-  console.error(err);
-});
+(async function() {
+  try {
+    for await (const data of rs) {
+      for (const item of data) {
+        console.log(item);
+      }
+    }
+  } catch (err) {
+    console.error(err);
+  }
+})();
 
 console.log("end");
