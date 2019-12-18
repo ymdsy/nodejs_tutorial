@@ -36,10 +36,17 @@ app.post("/register", async (req, res, next) => {
  * TODOを更新する。
  * 更新したTODOを返す。
  */
+app.put("/update", async (req, res) => {
+  updateTodo(req.body);
+  res.status(200).json(await findAllTodo());
+});
+
+/**
+ * TODOを削除する。
+ */
 app.put("/update", (req, res) => {
   updateTodo(req.body);
 });
-
 /**
  * すべてのTODOを取得する。（同期）
  */
@@ -76,7 +83,7 @@ function insertTodo(content) {
 /**
  * TODOを更新する。
  */
-function updateTodoContent(contents) {
+function updateTodo(contents) {
   if (contents === null) {
     return;
   }
