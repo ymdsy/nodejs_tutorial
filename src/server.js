@@ -22,6 +22,7 @@ app.get("/", async (req, res) => {
   // 非同期
   //   res.status(200).json(await findAllTodo());
 });
+
 /**
  * 新しいTODOを登録する。
  * 登録したTODOを含めたすべてのTODOを返す
@@ -29,6 +30,14 @@ app.get("/", async (req, res) => {
 app.post("/register", async (req, res, next) => {
   insertTodo(req.body.content);
   res.status(200).json(await findAllTodo());
+});
+
+/**
+ * TODOを更新する。
+ * 更新したTODOを返す。
+ */
+app.put("/update", (req, res) => {
+  updateTodo(req.body);
 });
 
 /**
@@ -62,4 +71,15 @@ function insertTodo(content) {
   }
   const stmt = db.prepare("insert into todo(content, executed) values(?, 0)");
   stmt.run(content);
+}
+
+/**
+ * TODOを更新する。
+ */
+function updateTodoContent(contents) {
+  if (contents === null) {
+    return;
+  }
+  const stmt = db.prepare("update todo set content=?, executed=? where id=?");
+  stmt.run([contents.content, contents.executed, contents.id]);
 }
