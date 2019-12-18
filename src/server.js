@@ -44,9 +44,11 @@ app.put("/update", async (req, res) => {
 /**
  * TODOを削除する。
  */
-app.put("/update", (req, res) => {
-  updateTodo(req.body);
+app.delete("/delete", async (req, res) => {
+  deleteTodo(req.body);
+  res.status(200).json(await findAllTodo());
 });
+
 /**
  * すべてのTODOを取得する。（同期）
  */
@@ -89,4 +91,15 @@ function updateTodo(contents) {
   }
   const stmt = db.prepare("update todo set content=?, executed=? where id=?");
   stmt.run([contents.content, contents.executed, contents.id]);
+}
+
+/**
+ * TODOを削除する。
+ */
+function deleteTodo(contents) {
+  if (contents.id === null) {
+    return;
+  }
+  const stmt = db.prepare("delete from todo where id = ?");
+  stmt.run(contents.id);
 }
