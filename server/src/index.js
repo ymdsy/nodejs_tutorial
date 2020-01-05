@@ -15,6 +15,7 @@ app.listen("8888", async () => {
 app.get("/todo", async (req, res) => {
   // 同期
   findAllTodoSync(r => {
+    res.setHeader("Access-Control-Allow-Origin", req.headers.origin);
     res.status(200).json(r);
   });
 
@@ -28,6 +29,7 @@ app.get("/todo", async (req, res) => {
  */
 app.post("/todo", async (req, res, next) => {
   insertTodo(req.body.content);
+  res.setHeader("Access-Control-Allow-Origin", req.headers.origin);
   res.status(200).json(await findAllTodo());
 });
 
@@ -37,6 +39,7 @@ app.post("/todo", async (req, res, next) => {
  */
 app.put("/todo", async (req, res) => {
   updateTodo(req.body);
+  res.setHeader("Access-Control-Allow-Origin", req.headers.origin);
   res.status(200).json(await findAllTodo());
 });
 
@@ -45,6 +48,7 @@ app.put("/todo", async (req, res) => {
  */
 app.delete("/todo", async (req, res) => {
   deleteTodo(req.body);
+  res.setHeader("Access-Control-Allow-Origin", req.headers.origin);
   res.status(200).json(await findAllTodo());
 });
 
