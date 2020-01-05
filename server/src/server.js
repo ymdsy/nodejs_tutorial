@@ -13,7 +13,7 @@ app.listen("8888", async () => {
 /**
  * 全TODOのjsonを返す。
  */
-app.get("/", async (req, res) => {
+app.get("/todo", async (req, res) => {
   // 同期
   findAllTodoSync(r => {
     res.status(200).json(r);
@@ -27,7 +27,7 @@ app.get("/", async (req, res) => {
  * 新しいTODOを登録する。
  * 登録したTODOを含めたすべてのTODOを返す
  */
-app.post("/register", async (req, res, next) => {
+app.post("/todo", async (req, res, next) => {
   insertTodo(req.body.content);
   res.status(200).json(await findAllTodo());
 });
@@ -36,7 +36,7 @@ app.post("/register", async (req, res, next) => {
  * TODOを更新する。
  * 更新したTODOを返す。
  */
-app.put("/update", async (req, res) => {
+app.put("/todo", async (req, res) => {
   updateTodo(req.body);
   res.status(200).json(await findAllTodo());
 });
@@ -44,7 +44,7 @@ app.put("/update", async (req, res) => {
 /**
  * TODOを削除する。
  */
-app.delete("/delete", async (req, res) => {
+app.delete("/todo", async (req, res) => {
   deleteTodo(req.body);
   res.status(200).json(await findAllTodo());
 });

@@ -25,13 +25,13 @@ todo テーブル
 # API
 
 - TODO 取得
-  `curl localhost:8888`
+  `curl localhost:8888/todo`
 
 - TODO 登録
-  `curl -X POST -d 'content=bbb' localhost:8888/register`
+  `curl -X POST -d 'content=bbb' localhost:8888/todo`
 
 - TODO 更新
-  `url -X PUT -d 'executed=0&content=ccc&id=3' localhost:8888/update`
+  `url -X PUT -d 'executed=0&content=ccc&id=3' localhost:8888/todo`
 
 - TODO 削除
-  `curl -X DELETE -d 'id=13' localhost:8888/delete`
+  `curl -X DELETE -d 'id=13' localhost:8888/todo`
