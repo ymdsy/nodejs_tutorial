@@ -1,5 +1,7 @@
-# dependencies
+# server
 /server/node_modules
 
 *.sqlite3
-*.txt
+
+# front 
+/front/todo-front//node_modules
