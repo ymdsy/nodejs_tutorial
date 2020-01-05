@@ -5,7 +5,6 @@ const db = new sqlite3.Database("todolist.sqlite3");
 
 app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
-
 app.listen("8888", async () => {
   console.log("listen 8888");
 });
