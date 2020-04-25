@@ -2,7 +2,9 @@ const express = require("express");
 const app = express();
 const sqlite3 = require("sqlite3").verbose();
 const db = new sqlite3.Database("todolist.sqlite3");
+var cors = require("cors");
 
+app.use(cors()); // すべての要求を許可する
 app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 app.listen("8888", async () => {
@@ -14,13 +16,13 @@ app.listen("8888", async () => {
  */
 app.get("/todo", async (req, res) => {
   // 同期
-  findAllTodoSync(r => {
-    res.setHeader("Access-Control-Allow-Origin", req.headers.origin);
-    res.status(200).json(r);
-  });
+  // findAllTodoSync((r) => {
+  //   res.setHeader("Access-Control-Allow-Origin", req.headers.origin);
+  //   res.status(200).json(r);
+  // });
 
   // 非同期
-  //   res.status(200).json(await findAllTodo());
+  res.status(200).json(await findAllTodo());
 });
 
 /**
