@@ -5,16 +5,17 @@ export class TodoItemContainer extends React.Component {
   constructor(props) {
     super(props);
     this.onChangeContent = this.onChangeContent.bind(this);
+    this.onChangeCheck = this.onChangeCheck.bind(this);
     this.changeTodo = this.changeTodo.bind(this);
   }
 
-  onChangeContent(value) {
-    // this.changeTodo().then((todoList) => {
-    //   this.setState({
-    //     todoList: todoList,
-    //   });
-    // });
-    this.changeTodo("executed=0&content=" + value + "&id=3");
+  onChangeContent(id, value, checked) {
+    console.log(id, value, checked);
+    this.changeTodo("executed=" + checked + "&content=" + value + "&id=" + id);
+  }
+
+  onChangeCheck(checked) {
+    return checked === "checked" ? 0 : 1;
   }
 
   async changeTodo(data) {
@@ -45,6 +46,7 @@ export class TodoItemContainer extends React.Component {
           }
           checked={this.props.todo.executed !== 0 ? "checked" : ""}
           onChangeContent={this.onChangeContent}
+          onChangeCheck={this.onChangeCheck}
         />
       </>
     );
