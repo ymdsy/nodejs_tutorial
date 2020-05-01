@@ -5,9 +5,10 @@ export class TodoCreateContainer extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { initialContent: "" };
+    this.state = { content: "" };
 
     this.onCreateContent = this.onCreateContent.bind(this);
+    this.onChangeContent = this.onChangeContent.bind(this);
   }
 
   /**
@@ -15,13 +16,19 @@ export class TodoCreateContainer extends React.Component {
    *
    * @param {コンテンツ} content
    */
-  onCreateContent(content) {
-    this.createTodo(content).then((todoList) =>
+  onCreateContent() {
+    this.createTodo(this.state.content).then((todoList) =>
       this.props.updateTodoList(todoList)
     );
 
     this.setState({
-      initialContent: "",
+      content: "",
+    });
+  }
+
+  onChangeContent(content) {
+    this.setState({
+      content: content,
     });
   }
 
@@ -55,8 +62,9 @@ export class TodoCreateContainer extends React.Component {
   render() {
     return (
       <TodoCreatePresenter
-        initialContent={this.state.initialContent}
+        content={this.state.content}
         onCreateContent={this.onCreateContent}
+        onChangeContent={this.onChangeContent}
       />
     );
   }

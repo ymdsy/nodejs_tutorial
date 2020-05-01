@@ -7,9 +7,10 @@ export function TodoCreatePresenter(props) {
         新しいTODO：
         <input
           type="text"
-          value={props.initialContent}
-          onChange={(e) => props.onCreateContent(e.target.value)}
+          value={props.content}
+          onChange={(e) => props.onChangeContent(e.target.value)}
         />
+        <button onClick={() => props.onCreateContent()}>作成する</button>
       </form>
     </div>
   );
