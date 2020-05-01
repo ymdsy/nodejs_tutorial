@@ -9,9 +9,23 @@ export class TodoItemContainer extends React.Component {
     this.changeTodo = this.changeTodo.bind(this);
   }
 
-  onChangeContent(id, value, checked) {
-    console.log(id, value, checked);
-    this.changeTodo("executed=" + checked + "&content=" + value + "&id=" + id);
+  /**
+   * フォームから変更を受け取り、
+   * TODOリストを変更するリクエストをサーバに送って画面を更新する。
+   *
+   * @param {id} id
+   * @param {コンテンツ} content
+   * @param {チェックフラグ} checked
+   */
+  onChangeContent(id, content, checked) {
+    // 特殊文字をエスケープ
+    id = escape(id);
+    content = escape(content);
+    checked = escape(checked);
+
+    this.changeTodo(
+      "executed=" + checked + "&content=" + content + "&id=" + id
+    ).then((todoList) => this.props.updateTodoList(todoList));
   }
 
   onChangeCheck(checked) {

@@ -6,7 +6,11 @@ export function TodoListPresenter(props) {
     <>
       <div>id/content/done</div>
       {props.todoList.map((todo) => (
-        <TodoItemContainer todo={todo} key={todo.id} />
+        <TodoItemContainer
+          todo={todo}
+          key={todo.id}
+          updateTodoList={props.updateTodoList}
+        />
       ))}
     </>
   );

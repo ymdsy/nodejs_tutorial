@@ -9,17 +9,35 @@ class App extends React.Component {
     this.state = {
       todoList: {},
     };
+
+    this.updateTodoList = this.updateTodoList.bind(this);
   }
 
+  /**
+   * 各コンポーネントがマウントされたら、
+   * TODOを取得して更新する。
+   */
   componentDidMount() {
-    this.getAllTodo().then((todoList) => {
-      this.setState({
-        todoList: todoList,
-      });
+    this.fetchAllTodo().then((todoList) => this.updateTodoList(todoList));
+  }
+
+  /**
+   * stateを引数のJSON形式のTODOリストで更新する。
+   *
+   * @param {TODOリスト} todoList
+   */
+  updateTodoList(todoList) {
+    console.log(todoList);
+
+    this.setState({
+      todoList: todoList,
     });
   }
 
-  async getAllTodo() {
+  /**
+   * TODOリストをサーバから取得する。
+   */
+  async fetchAllTodo() {
     const url = "http://localhost:8888/todo";
     const response = await fetch(url);
     if (!response.ok) {
@@ -33,7 +51,10 @@ class App extends React.Component {
     return (
       <div className="App">
         {this.state.todoList.length > 0 ? (
-          <TodoListPresenter todoList={this.state.todoList} />
+          <TodoListPresenter
+            todoList={this.state.todoList}
+            updateTodoList={this.updateTodoList}
+          />
         ) : (
           <div>Loding list...</div>
         )}
