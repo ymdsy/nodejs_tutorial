@@ -9,11 +9,7 @@ export function TodoItemPresenter(props) {
           type="checkbox"
           checked={props.checked}
           onChange={() =>
-            props.onChangeContent(
-              props.id,
-              props.content,
-              props.onChangeCheck(props.checked)
-            )
+            props.onChangeCheck(props.id, props.content, props.checked)
           }
         />
         <input

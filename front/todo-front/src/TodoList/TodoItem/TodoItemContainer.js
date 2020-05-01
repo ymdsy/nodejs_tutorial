@@ -25,21 +25,23 @@ export class TodoItemContainer extends React.Component {
   }
 
   /**
+   * formの値から、チェックフラグを確認する。
+   *
+   * @param {チェックフラグ}} checked
+   */
+  onChangeCheck(id, content, checked) {
+    this.changeTodo(id, content, checked === 1 ? 0 : 1).then((todoList) =>
+      this.props.updateTodoList(todoList)
+    );
+  }
+
+  /**
    * 引数から受け取ったIDのTODOを削除する。
    *
    * @param {id} id
    */
   onDeleteContent(id) {
-    // this.deleteTodo(id);
     this.deleteTodo(id).then((todoList) => this.props.updateTodoList(todoList));
-  }
-  /**
-   * formの値から、チェックフラグを確認する。
-   *
-   * @param {チェックフラグ}} checked
-   */
-  onChangeCheck(checked) {
-    return checked === "checked" ? 0 : 1;
   }
 
   /**
@@ -114,7 +116,7 @@ export class TodoItemContainer extends React.Component {
     }
 
     if (checked !== 0 && checked !== 1) {
-      console.log("Illeagal checked was expected.");
+      console.log("Illeagal checked was expected. checked=[" + checked + "]");
       return false;
     }
 
@@ -130,7 +132,7 @@ export class TodoItemContainer extends React.Component {
           content={
             this.props.todo.content !== null ? this.props.todo.content : ""
           }
-          checked={this.props.todo.executed !== 0 ? "checked" : ""}
+          checked={this.props.todo.executed}
           onChangeContent={this.onChangeContent}
           onChangeCheck={this.onChangeCheck}
           onDeleteContent={this.onDeleteContent}
