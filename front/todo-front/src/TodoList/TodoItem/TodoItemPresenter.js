@@ -23,6 +23,9 @@ export function TodoItemPresenter(props) {
             )
           }
         />
+        <button onClick={() => props.onDeleteContent(props.id)}>
+          削除する
+        </button>
       </form>
     </div>
   );

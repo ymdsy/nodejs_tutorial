@@ -50,7 +50,7 @@ app.put("/todo", async (req, res) => {
  */
 app.delete("/todo", async (req, res) => {
   deleteTodo(req.body);
-  res.setHeader("Access-Control-Allow-Origin", req.headers.origin);
+  // res.setHeader("Access-Control-Allow-Origin", req.headers.origin);
   res.status(200).json(await findAllTodo());
 });
 
