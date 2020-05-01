@@ -1,18 +1,20 @@
 import React from "react";
+// import { TodoListContainer } from "./TodoList/TodoListContainer.js";
+import { TodoListPresenter } from "./TodoList/TodoListPresenter.js";
 
 class App extends React.Component {
   constructor(props) {
     // extendsしたコンポーネントのコンストラクタを実行する（propsを渡して）
     super(props);
     this.state = {
-      todoList: []
+      todoList: {},
     };
   }
 
   componentDidMount() {
-    this.getAllTodo().then(todoList => {
+    this.getAllTodo().then((todoList) => {
       this.setState({
-        todoList: todoList
+        todoList: todoList,
       });
     });
   }
@@ -21,7 +23,7 @@ class App extends React.Component {
     const url = "http://localhost:8888/todo";
     const response = await fetch(url);
     if (!response.ok) {
-      return null;
+      return console.log("Fail to receive responce.");
     }
     const json = await response.json();
     return json;
@@ -30,8 +32,11 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        app
-        {this.state.todoList.map(todo => todo.content)}
+        {this.state.todoList.length > 0 ? (
+          <TodoListPresenter todoList={this.state.todoList} />
+        ) : (
+          <div>Loding list...</div>
+        )}
       </div>
     );
   }

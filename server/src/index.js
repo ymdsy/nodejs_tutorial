@@ -41,7 +41,7 @@ app.post("/todo", async (req, res, next) => {
  */
 app.put("/todo", async (req, res) => {
   updateTodo(req.body);
-  res.setHeader("Access-Control-Allow-Origin", req.headers.origin);
+  // res.setHeader("Access-Control-Allow-Origin", req.headers.origin);
   res.status(200).json(await findAllTodo());
 });
 
