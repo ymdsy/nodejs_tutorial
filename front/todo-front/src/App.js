@@ -1,5 +1,5 @@
 import React from "react";
-// import { TodoListContainer } from "./TodoList/TodoListContainer.js";
+import { TodoCreateContainer } from "./TodoCreator/TodoCreateContainer.js";
 import { TodoListPresenter } from "./TodoList/TodoListPresenter.js";
 
 class App extends React.Component {
@@ -58,6 +58,7 @@ class App extends React.Component {
         ) : (
           <div>Loding list...</div>
         )}
+        <TodoCreateContainer updateTodoList={this.updateTodoList} />
       </div>
     );
   }

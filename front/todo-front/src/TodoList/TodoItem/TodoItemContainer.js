@@ -53,7 +53,7 @@ export class TodoItemContainer extends React.Component {
     // 特殊文字をエスケープ
     content = escape(content);
 
-    if (!this.isValid(id, content)) {
+    if (!this.isValid(id, checked)) {
       return;
     }
 
