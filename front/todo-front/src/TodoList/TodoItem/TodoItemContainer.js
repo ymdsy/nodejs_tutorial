@@ -19,6 +19,8 @@ export class TodoItemContainer extends React.Component {
    * @param {チェックフラグ} checked
    */
   onChangeContent(id, content, checked) {
+    console.log(content);
+
     this.changeTodo(id, content, checked).then((todoList) =>
       this.props.updateTodoList(todoList)
     );
@@ -52,22 +54,20 @@ export class TodoItemContainer extends React.Component {
    * @param {チェックフラグ} checked
    */
   async changeTodo(id, content, checked) {
-    // 特殊文字をエスケープ
-    content = escape(content);
-
     if (!this.isValid(id, checked)) {
       return;
     }
 
-    const data = "executed=" + checked + "&content=" + content + "&id=" + id;
+    const formData = new FormData();
+    formData.append("id", id);
+    formData.append("content", content);
+    formData.append("executed", checked);
+    const formDataEncoded = new URLSearchParams(formData);
 
     const url = "http://localhost:8888/todo";
     const response = await fetch(url, {
       method: "PUT",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body: data,
+      body: formDataEncoded,
     });
     if (!response.ok) {
       console.log("Fail to receive responce.", response);
@@ -87,14 +87,14 @@ export class TodoItemContainer extends React.Component {
       return;
     }
 
-    const data = "id=" + id;
+    const formData = new FormData();
+    formData.append("id", id);
+    const formDataEncoded = new URLSearchParams(formData);
+
     const url = "http://localhost:8888/todo";
     const response = await fetch(url, {
       method: "DELETE",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body: data,
+      body: formDataEncoded,
     });
     if (!response.ok) {
       console.log("Fail to receive responce.", response);

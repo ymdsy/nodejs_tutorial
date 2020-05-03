@@ -38,18 +38,14 @@ export class TodoCreateContainer extends React.Component {
    * @param {コンテンツ} content
    */
   async createTodo(content) {
-    // 特殊文字をエスケープ
-    content = escape(content);
-
-    const data = "content=" + content;
+    const formData = new FormData();
+    formData.append("content", content);
+    const formDataEncoded = new URLSearchParams(formData);
 
     const url = "http://localhost:8888/todo";
     const response = await fetch(url, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body: data,
+      body: formDataEncoded,
     });
     if (!response.ok) {
       console.log("Fail to receive responce.", response);

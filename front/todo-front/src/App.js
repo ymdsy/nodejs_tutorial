@@ -7,7 +7,7 @@ class App extends React.Component {
     // extendsしたコンポーネントのコンストラクタを実行する（propsを渡して）
     super(props);
     this.state = {
-      todoList: {},
+      todoList: [],
     };
 
     this.updateTodoList = this.updateTodoList.bind(this);
@@ -27,7 +27,9 @@ class App extends React.Component {
    * @param {TODOリスト} todoList
    */
   updateTodoList(todoList) {
-    console.log(todoList);
+    if (typeof todoList === "undefined") {
+      return;
+    }
 
     this.setState({
       todoList: todoList,
@@ -41,7 +43,8 @@ class App extends React.Component {
     const url = "http://localhost:8888/todo";
     const response = await fetch(url);
     if (!response.ok) {
-      return console.log("Fail to receive responce.");
+      console.log("Fail to receive responce.");
+      return;
     }
     const json = await response.json();
     return json;
